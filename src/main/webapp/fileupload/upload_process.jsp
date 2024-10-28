@@ -1,3 +1,5 @@
+<%@page import="java.io.File"%>
+<%@page import="com.oreilly.servlet.MultipartRequest"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"
     info=""
@@ -27,7 +29,14 @@ $(function(){
 </head>
 <body>
 <div id="wrap">
-sdaf
+<%-- 
+web parameter가 전달되지 않는다.
+업로더 : <%=request.getParameter("uploader") %><br>
+EL : ${param.uploader }<br> --%>
+요청방식 : <%=request.getMethod() %><br>
+<%
+File file=new File("C:/dev/workspase/jsp_prj/src/main/webapp/upload");
+%>
 </div>
 </body>
 </html>

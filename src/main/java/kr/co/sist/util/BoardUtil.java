@@ -10,6 +10,13 @@ public class BoardUtil {
 		return columName[Integer.parseInt(fieldNum)];
 	}
 	
+	/**
+	 * 페이지 네이션을 사용하면 매개변수로 입력되는 객체의
+	 * currentPage 번호, totalPage 수 , totalCount 수
+	 * 검색을 수행하면 field 값, keyword, url이 반드시 입력되어야 합니다.
+	 * @param sVO
+	 * @return
+	 */
 	public String pagination(SearchVO sVO) {
 		StringBuilder pagination=new StringBuilder();
 	
