@@ -1,0 +1,54 @@
+ // 수량 변경 및 금액 계산
+    $('.quantity_control button').click(function() {
+        var row = $(this).closest('tr');
+        var input = row.find('input[type="text"]');
+        var quantity = parseInt(input.val());
+        
+        if ($(this).text() === '+') {
+            quantity++;
+        } else if (quantity > 1) {
+            quantity--;
+        }
+        
+        input.val(quantity);
+        updateRowTotal(row);
+        updateTotalOrder();
+    });
+
+    // 전체 선택/해제
+    $('#selectAll').change(function() {
+        $('.cart_table tbody input[type="checkbox"]').prop('checked', $(this).prop('checked'));
+        updateTotalOrder();
+    });
+
+    // 개별 체크박스 변경 시
+    $('.cart_table tbody input[type="checkbox"]').change(function() {
+        updateSelectAllCheckbox();
+        updateTotalOrder();
+    });
+
+    function updateRowTotal(row) {
+        var price = parseInt(row.find('td:eq(2)').text().replace(/[^0-9]/g, ''));
+        var quantity = parseInt(row.find('input[type="text"]').val());
+        var total = price * quantity;
+        row.find('td:eq(4)').text(total.toLocaleString() + '원');
+    }
+
+    function updateTotalOrder() {
+        var total = 0;
+        $('.cart_table tbody tr').each(function() {
+            if ($(this).find('input[type="checkbox"]').prop('checked')) {
+                total += parseInt($(this).find('td:eq(4)').text().replace(/[^0-9]/g, ''));
+            }
+        });
+        var shipping = 5000;
+        var grandTotal = total + shipping;
+        $('.total_order').html('주문금액 합계 ' + total.toLocaleString() + '원 + 배송비 ' + shipping.toLocaleString() + '원 = 총 주문금액 <strong>' + grandTotal.toLocaleString() + '원</strong>');
+    }
+
+    // 새로 추가된 함수: 개별 체크박스 상태에 따라 전체 선택 체크박스 업데이트
+    function updateSelectAllCheckbox() {
+        var allChecked = $('.cart_table tbody input[type="checkbox"]').length === 
+                         $('.cart_table tbody input[type="checkbox"]:checked').length;
+        $('#selectAll').prop('checked', allChecked);
+    }

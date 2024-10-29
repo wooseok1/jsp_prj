@@ -37,6 +37,11 @@ web parameter가 전달되지 않는다.
 EL : ${param.uploader }<br> --%>
 요청방식 : <%=request.getMethod() %><br>
 <%
+//flag 받기
+boolean uploadFlag=(boolean)session.getAttribute("uploadFlag");
+
+if(!uploadFlag){
+
 //1.업로드된 파일의 저장 디렉토리 얻기
 File saveDir=new File("C:/dev/workspase/jsp_prj/src/main/webapp/upload");
 //2.업로드 파일의 최대 크기()
@@ -98,6 +103,8 @@ try{
 	파일업로드 실패
 	<%
 }//end catch
+session.setAttribute("uploadFlag", true);
+}//end if
 %>
 </div>
 </body>
